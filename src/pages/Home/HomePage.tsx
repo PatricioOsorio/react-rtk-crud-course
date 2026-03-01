@@ -1,14 +1,15 @@
-import { TaskForm } from "@components/TaskForm";
+import { TaskForm } from '@components/TaskForm';
 import { TaskList } from '@components/TaskList';
 
 export const HomePage = () => {
   return (
-    <article>
+    <article className="page">
       <h1 className="tit">HomePage</h1>
 
-      <TaskForm />
-
-      <TaskList />
+      <section className="grid gap-6 md:grid-cols-2">
+        <TaskForm />
+        <TaskList />
+      </section>
     </article>
   );
 };

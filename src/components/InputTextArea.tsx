@@ -9,7 +9,7 @@ export const InputTextArea = ({ label, placeholder, ...rest }: IInputTextAreaPro
   return (
     <fieldset className="fieldset">
       <legend className="fieldset-legend">{label}</legend>
-      <textarea className="textarea" placeholder={placeholder} {...rest} />
+      <textarea className="textarea w-full" placeholder={placeholder} {...rest} />
     </fieldset>
   );
 };

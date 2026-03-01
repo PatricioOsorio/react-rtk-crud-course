@@ -36,7 +36,7 @@ export const TaskForm = () => {
 
   return (
     <form
-      className="card bg-base-100 border border-base-300 shadow-md w-full max-w-xl mx-auto"
+      className="card bg-base-100 border-base-300 w-full border shadow-md"
       onSubmit={handleSubmit}
     >
       <div className="card-body gap-4">

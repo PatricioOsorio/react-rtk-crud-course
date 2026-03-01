@@ -1,7 +1,15 @@
-import { HomePage } from '@pages/Home/HomePage';
+import { Provider } from 'react-redux';
+import { RouterProvider } from 'react-router';
 
-function App() {
-  return <HomePage />;
-}
+import { store } from '@app/store';
+import { appRouter } from '@router/app.router';
 
-export default App;
+import './styles/app.css';
+
+export const App = () => {
+  return (
+    <Provider store={store}>
+      <RouterProvider router={appRouter} />
+    </Provider>
+  );
+};

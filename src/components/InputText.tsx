@@ -9,7 +9,7 @@ export const InputText = ({ label, placeholder, ...rest }: IInputTextProps) => {
   return (
     <fieldset className="fieldset">
       <legend className="fieldset-legend">{label}</legend>
-      <input type="text" className="input" placeholder={placeholder} {...rest} />
+      <input type="text" className="input w-full" placeholder={placeholder} {...rest} />
     </fieldset>
   );
 };

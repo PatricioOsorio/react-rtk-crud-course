@@ -13,10 +13,13 @@ export const TaskList = () => {
   };
 
   return (
-    <ul className="list bg-base-100 rounded-box shadow-lg gap-3">
-      {tasks.map((task) => (
-        <TaskItem key={task.id} {...task} onDelete={() => handleDelete(task.id)} />
-      ))}
-    </ul>
+    <section>
+      <h2>Total: {tasks.length}</h2>
+      <ul className="list bg-base-100 rounded-box border-base-300 gap-3 border shadow-lg">
+        {tasks.map((task) => (
+          <TaskItem key={task.id} {...task} onDelete={() => handleDelete(task.id)} />
+        ))}
+      </ul>
+    </section>
   );
 };
