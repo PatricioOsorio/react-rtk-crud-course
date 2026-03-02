@@ -8,6 +8,7 @@ export interface ITaskState {
 }
 
 type IAddTaskPayload = Omit<ITaskState, 'id' | 'completed'>;
+type IEditTaskPayload = Omit<ITaskState, 'completed'>;
 
 const initialState: ITaskState[] = [
   { id: 1, title: 'Task 1', description: 'Description for Task 1', completed: false },
@@ -33,8 +34,18 @@ export const taskSlice = createSlice({
       const id = action.payload;
       return state.filter((task) => task.id !== id);
     },
+
+    editTask: (state, action: PayloadAction<IEditTaskPayload>) => {
+      const { id, title, description } = action.payload;
+      const taskFound = state.find((task) => task.id === id);
+
+      if (!taskFound) return;
+
+      taskFound.title = title;
+      taskFound.description = description;
+    },
   },
 });
 
-export const { addTask, deleteTask } = taskSlice.actions;
+export const { addTask, deleteTask, editTask } = taskSlice.actions;
 export default taskSlice.reducer;
