@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 import { TaskItem } from './TaskItem';
 import type { IRootState } from '@app/store';
 import { deleteTask, type ITaskState } from '@features/tasks/taskSlice';
-import { useNavigate } from 'react-router';
 
 export const TaskList = () => {
   const tasks = useSelector<IRootState, ITaskState[]>((state) => state.tasks);
@@ -15,7 +15,7 @@ export const TaskList = () => {
   };
 
   const handleEdit = (id: number) => {
-    navigate(`/edit/${id}`);
+    navigate(`/?id=${id}`);
   };
 
   return (

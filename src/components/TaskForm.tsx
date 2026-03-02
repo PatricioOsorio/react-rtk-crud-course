@@ -1,26 +1,32 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate, useNavigate, useSearchParams } from 'react-router';
 
 import { InputText } from './InputText';
 import { InputTextArea } from './InputTextArea';
 import { addTask, editTask, type ITaskState } from '@features/tasks/taskSlice';
-import { useNavigate, useParams } from 'react-router';
 import type { IRootState } from '@app/store';
 
 export const TaskForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const params = useParams();
+  const [searchParams, setSearchParams] = useSearchParams({ id: '' });
+
+  const id = useMemo(() => searchParams.get('id'), [searchParams]);
+  const isEdit = Boolean(id);
 
   const tasks = useSelector<IRootState, ITaskState[]>((state) => state.tasks);
 
-  const isEdit = Boolean(params.id);
-  const tasksFound = params.id ? tasks.find((t) => t.id === Number(params.id)) : undefined;
+  const taskFound = tasks.find((task) => task.id === Number(id));
 
   const [task, setTask] = useState({
-    title: tasksFound?.title || '',
-    description: tasksFound?.description || '',
+    title: taskFound?.title || '',
+    description: taskFound?.description || '',
   });
+
+  if (isEdit && !taskFound) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleChangeTask = (title: string, description: string) => {
     setTask((prev) => ({
@@ -42,7 +48,7 @@ export const TaskForm = () => {
 
     if (isEdit) {
       const newTask = {
-        id: Number(params.id),
+        id: Number(id),
         title: task.title,
         description: task.description,
       };
@@ -55,6 +61,10 @@ export const TaskForm = () => {
 
     dispatch(addTask(task));
     navigate('/');
+  };
+
+  const handleCancel = () => {
+    setSearchParams({ id: '' });
   };
 
   return (
@@ -71,7 +81,7 @@ export const TaskForm = () => {
           placeholder="Task title"
           onChange={handleChangeTitle}
           required
-          defaultValue={task.title}
+          value={task.title}
         />
 
         <InputTextArea
@@ -80,10 +90,15 @@ export const TaskForm = () => {
           placeholder="Task description"
           onChange={handleChangeArea}
           required
-          defaultValue={task.description}
+          value={task.description}
         />
 
         <div className="card-actions justify-end pt-2">
+          {isEdit && (
+            <button type="button" className="btn btn-ghost" onClick={handleCancel}>
+              Cancel
+            </button>
+          )}
           <button
             type="submit"
             className="btn btn-primary w-full sm:w-auto"

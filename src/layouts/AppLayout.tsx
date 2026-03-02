@@ -11,9 +11,6 @@ export const AppLayout = () => {
           <Link className="btn" to="/" viewTransition>
             Home
           </Link>
-          <Link className="btn" to="/create" viewTransition>
-            Create task
-          </Link>
         </div>
       </nav>
 

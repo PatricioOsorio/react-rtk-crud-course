@@ -2,7 +2,7 @@ import type { ITaskState } from '@features/tasks/taskSlice';
 
 export interface ITaskItemProps extends ITaskState {
   onDelete: () => void;
-  onEdit?: () => void;
+  onEdit: () => void;
 }
 
 export const TaskItem = ({ title, description, completed, onDelete, onEdit }: ITaskItemProps) => {
